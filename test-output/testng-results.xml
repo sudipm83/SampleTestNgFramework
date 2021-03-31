@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testng-results ignored="0" total="1" passed="1" failed="0" skipped="0">
+  <reporter-output>
+  </reporter-output>
+  <suite started-at="2021-03-29T17:30:49 IST" name="Default suite" finished-at="2021-03-29T17:31:00 IST" duration-ms="11247">
+    <groups>
+    </groups>
+    <test started-at="2021-03-29T17:30:49 IST" name="Default test" finished-at="2021-03-29T17:31:00 IST" duration-ms="11247">
+      <class name="test.flows.LoginTest">
+        <test-method is-config="true" signature="init()[pri:0, instance:test.flows.LoginTest@7f485fda]" started-at="2021-03-29T17:30:49 IST" name="init" finished-at="2021-03-29T17:30:59 IST" duration-ms="10098" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- init -->
+        <test-method signature="testLogin()[pri:0, instance:test.flows.LoginTest@7f485fda]" started-at="2021-03-29T17:30:59 IST" name="testLogin" finished-at="2021-03-29T17:30:59 IST" duration-ms="247" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testLogin -->
+        <test-method is-config="true" signature="quitDriver()[pri:0, instance:test.flows.LoginTest@7f485fda]" started-at="2021-03-29T17:30:59 IST" name="quitDriver" finished-at="2021-03-29T17:31:00 IST" duration-ms="857" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- quitDriver -->
+      </class> <!-- test.flows.LoginTest -->
+    </test> <!-- Default test -->
+  </suite> <!-- Default suite -->
+</testng-results>
