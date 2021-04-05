@@ -58,6 +58,38 @@ public class ExcelUtil {
 		return totalUniqueIteration;
 	}
 	
+	private int getRowContains(String testCaseNameStr, int colNumInt, XSSFWorkbook workbook, XSSFSheet sheet) throws IOException
+	{
+		int rowNumber = 0;
+		int rowCount = this.getRowUsed(sheet);
+		
+		for(int i = 0; i<rowCount; ++i)
+		{
+			if(this.getCellValue(i, colNumInt, workbook, sheet).equalsIgnoreCase(testCaseNameStr))
+			{
+				rowNumber = i;
+				break;
+			}
+		}
+		return rowNumber;
+	}
+	
+	private int getRowUsed(XSSFSheet sheet)
+	{
+		int rowCount = 0;
+		rowCount = sheet.getLastRowNum();
+		return rowCount;
+	}
+	
+	public XSSFSheet getExcelWSheetFile(String sheetNameStr) throws IOException
+	{
+		FileInputStream fileInputStream = new FileInputStream(this.filePath);
+		XSSFWorkbook workbook = this.getXSSFWorkbook(sheetNameStr, fileInputStream);
+		return workbook.getSheet(sheetNameStr);
+	}
+	
+	
+	
 	
 	
 	
@@ -98,6 +130,11 @@ public class ExcelUtil {
 		}
 		
 	}
+	
+	
+	
+	
+	
 	
 	private List<Integer> getMatchingRowIndices(String testCaseNameStr, XSSFWorkbook workbook, XSSFSheet sheet) throws NoMatchingNameException
 	{
@@ -235,4 +272,7 @@ public class ExcelUtil {
 		bufferReader.close();
 		return workbook;
 	}
+	
+	
+	
 }

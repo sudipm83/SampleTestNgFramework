@@ -7,10 +7,17 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
+import util.reader.xml.ConfigXmlReader;
 
 public class BaseTest {
 	
 	protected static WebDriver driver;
+	
+	public static String configXmlPathStr = "config/config.xml";
+	public static ConfigXmlReader configXmlReader = new ConfigXmlReader(configXmlPathStr);
+	public static String defaultEnvironment = configXmlReader.getAttributeValue("configuration.generalSettings.value","defaultEnvironmentName");
+	
+	public String username = EnvironmentManager.getKeyValue("credentials","username");
 	
 	
 	public BaseTest()
