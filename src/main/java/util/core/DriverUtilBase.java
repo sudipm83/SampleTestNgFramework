@@ -25,6 +25,7 @@ import javax.imageio.ImageIO;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -123,6 +124,124 @@ public class DriverUtilBase
 		return false;
 		}
 		
+		public  WebElement waitForElementToBeClickable(By locator)
+		{
+			return this.waitForElementToBeClickable(locator, secondsToTry);	
+			
+		}
 		
+		public WebElement waitForElementToBeClickable(By locator, int timeout) {
+			logger.debug("DriverUtilBase.waitForElementToBeclickable(locator, timeout): "+ locator.toString() +", "	+ timeout);
+			try {
+			this.wdw = new WebDriverWait(this.driver, (long) timeout);
+			this.wdw.withMessage(String.format("Timed out waiting for the element with property {%s} to be clickable.",	locator.toString()));
+			this.wdw.pollingEvery(1L, TimeUnit.SECONDS);
+			return (WebElement) this.wdw.until(ExpectedConditions.elementToBeClickable(locator));
+			} catch (NoSuchElementException var4) {
+			SeleniumException.throwNoSuchElementException(locator, "Element does not exist");
+			} catch (Exception vars) {
+			SeleniumException.throwTimedoutWhileWaitingException(" to be clickable", locator.toString());
+			}
+			return null;
+			}
+		
+		public boolean waitForElementToBeSelected(By locator) {
+			return this.waitForElementToBeSelected(locator, secondsToTry);
+			}
+		
+		public boolean waitForElementToBeSelected(By locator, int timeout) {
+			logger.debug("DriverUtilBase. waitForelementToBeSelected(locator, timeout): "+ locator.toString() +", "	+ timeout);
+			try {
+			this.wdw = new WebDriverWait(this.driver, (long) timeout);
+			this.wdw.withMessage(String.format("Timed out waiting for the element with property {s} to be selected.",
+			locator.toString()));
+			this.wdw.pollingEvery(1L, TimeUnit.SECONDS);
+			return (Boolean) this.wdw.until(ExpectedConditions.elementToBeSelected(locator));
+			} catch (NoSuchElementException var4) {
+			SeleniumException.throwNoSuchElementException(locator, "Element does not exist");
+			} catch (Exception vars) {
+			SeleniumException.throwTimedoutWhileWaitingException(" to be selected", locator.toString());
+			}
+			return false;
+		}
+		
+		public Boolean waitForTextToBePresentInElementValue (By locator, String text) {
+			return this.waitForTextToBePresentInElementValue (locator, text, secondsToTry);
+			}
+			
+		public boolean waitForTextToBePresentInElementValue (By locator, String text, int timeout) {
+			logger.debug ("DriverUtilBase.waitForTextToBePresentInElementValue (locator, text, timeout): "	+ locator.toString() + ", "  + text + ", " + timeout);
+			try {
+			this.wdw = new WebDriverWait (this.driver, (long) timeout);
+			this.wdw.withMessage (String.format ("Timed out waiting for text {$s} to be present in locator { $s}.", text,
+			locator.toString()));
+			this.wdw.pollingEvery (1L, TimeUnit. SECONDS) ;
+			return (Boolean) this.wdw.until (ExpectedConditions.textToBePresentInElementValue (locator, text));
+			} catch (NoSuchElementException var5) {
+			SeleniumException.throwNoSuchElementException (locator, "Element does not exist");
+			} catch (Exception var6) {
+			SeleniumException.throwMismatchException (locator, text, this.getElementText(locator)) ;
+			}
+			
+			return false;
+		}
+			
+		public boolean WaitForTextToBePresentInElement(By locator, String text) {
+			return this.waitForTextToBePresentInElement(locator, text, secondsToTry);
+		}
+		
+		public boolean waitForTextToBePresentInElement(By locator, String text, int timeout) {
+			logger.debug("DriverUtilBase.waitForTextToBePresentInElement (locator, text, timeout): "+ locator.toString() +", "+text+", "+timeout);
+			try {
+			this.wdw = new WebDriverWait (this.driver, (long) timeout);
+			this.wdw.withMessage (String.format ("Timed out waiting for text { $s} to be present in element { $s}.", text,locator.toString()));
+			this.wdw.pollingEvery(1L, TimeUnit.SECONDS) ;
+			return (Boolean) this.wdw.until (ExpectedConditions.textToBePresentInElementLocated (locator, text));
+			}catch (NoSuchElementException var5) {
+				SeleniumException.throwNoSuchElementException (locator, "Element does not exist");	
+			}catch (NoSuchElementException var6){
+				SeleniumException.throwTimedOutWhileWaitingException(" to contain the text: "+ text, locator.toString());
+			}
+			return false;
+		}
+		
+		
+		public void waitForJQueryToLoad() {
+		this. waitForJQueryToLoad (45);
+		}
+		
+		
+		public void waitForJQueryToLoad(int timeout) {
+		logger.debug ("DriverUtilBase.waitForJQueryToLoad(timeout), "+ timeout);
+			
+		
+		this.wdw = new WebDriverWait (this.driver, (long) timeout);
+		 ExpectedCondition<Boolean> jQueryLoad  = new ExpectedCondition<Boolean>() {
+			@Override
+	        public Boolean apply(WebDriver driver) {
+	            return (Boolean) ((JavascriptExecutor) driver).executeScript("return (window.jQuery != null);");
+	        	}
+		 	};
+		 	this.wdw.until(jQueryLoad);
+		  }
+		
+		
+		
+		
+		
+		public void waitForJQueryToComplete() {
+			this.waitForJQueryToComplete(45);
+			}
 
+		public void waitForJQueryToComplete(int timeout)
+		{
+			this.wdw = new WebDriverWait (this.driver, (long) timeout);
+			ExpectedCondition<Boolean> jQueryLoad  = new ExpectedCondition<Boolean>() {
+				@Override
+		        public Boolean apply(WebDriver driver) {
+		            return (Boolean) ((JavascriptExecutor) driver).executeScript("return (window.jQuery != null) && (jQuery.active === 0);");
+		        	}
+			};
+			this.wdw.until(jQueryLoad);
+		}
 }

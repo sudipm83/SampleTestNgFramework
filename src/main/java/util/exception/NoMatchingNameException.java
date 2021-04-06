@@ -1,4 +1,4 @@
-package util.reader.exception;
+package util.exception;
 
 public class NoMatchingNameException extends Exception{
 	public NoMatchingNameException(String type, String nameStr)

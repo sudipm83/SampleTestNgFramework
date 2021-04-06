@@ -18,7 +18,7 @@ import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-import util.reader.exception.NoMatchingNameException;
+import util.exception.NoMatchingNameException;
 
 public class ExcelUtil {
 	

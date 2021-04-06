@@ -33,7 +33,7 @@ public final class DriverBuilder {
 		
 		try {
 			ResourceBundle resource = ResourceBundle.getBundle("properties/config", this.locale, loader);
-			this.driver.get(resource.getString(propertykey));
+			this.driver.get(resource.getString(propertyKey));
 		}catch (MissingResourceException var6)
 		{
 			String defaultEnvironmentStr = getEnvironment();
@@ -41,7 +41,7 @@ public final class DriverBuilder {
 					"//environment[@name='" + defaultEnvironmentStr + "']//url[@key='" + propertyKey + "']/@value");
 			this.driver.get(applicationUrlStr);
 		}
-		this.driverUtilBase.waitForJQueryToCOmplete();
+		this.driverUtilBase.waitForJQueryToComplete();
 			
 	}
 	

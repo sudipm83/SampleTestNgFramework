@@ -13,8 +13,8 @@ import org.testng.annotations.Test;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import page.objects.LoginPage;
 import test.utils.BaseTest;
+import util.exception.NoMatchingNameException;
 import util.reader.excel.ExcelUtil;
-import util.reader.exception.NoMatchingNameException;
 
 public class LoginTest {
 	LoginPage loginPage = new LoginPage();
